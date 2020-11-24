@@ -5,6 +5,7 @@ import ChatBox from './ChatBox/ChatBox';
 import ChatInput from './ChatInput/ChatInput';
 import shopData from '../data/shop.json';
 import answersData from '../data/answers.json';
+import { ROLE } from '../constants';
 
 class Chat extends Component {
   constructor(props, context) {
@@ -28,7 +29,13 @@ class Chat extends Component {
   }
 
   handleInputChange = (value) => {
-    console.log(value);
+    const message = {
+      text: value,
+      role: ROLE.CUSTOMER,
+    };
+    this.setState((prev) => ({
+      messages: prev.messages.concat(message),
+    }));
   };
 
   render() {
