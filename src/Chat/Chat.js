@@ -33,9 +33,22 @@ class Chat extends Component {
       text: value,
       role: ROLE.CUSTOMER,
     };
-    this.setState((prev) => ({
-      messages: prev.messages.concat(message),
-    }));
+
+    const answer = answersData.find((robotAnswer) => robotAnswer.tags.includes(value));
+    if (answer) {
+      const answerMessage = {
+        role: ROLE.ROBOT,
+        text: answer.text,
+      };
+
+      this.setState((prev) => ({
+        messages: prev.messages.concat([message, answerMessage]),
+      }));
+    } else {
+      this.setState((prev) => ({
+        messages: prev.messages.concat(message),
+      }));
+    }
   };
 
   render() {
